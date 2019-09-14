@@ -1,10 +1,11 @@
 <?php
 
 
-class HTTPClient {
+class HTTPRestClient {
 
     //Client Variables
     private $url;
+    private $baseURL;
     private $method;
     
     //CURL Variables
@@ -23,6 +24,7 @@ class HTTPClient {
 
     public function __construct($url = null , $headers = null, $options = null){
         $this->url = isset($url) ? $url : null;
+        $this->baseURL = isset($url) ? $url : null;
         $this->headers = isset($headers) ? $headers : null;
         $this->options = isset($options) ? $options : null;
 
@@ -54,6 +56,19 @@ class HTTPClient {
 
     public function getResponseBodyAsJson(){
         return json_encode($this->responseBody);
+    }
+
+    public function getResponseBodyAsArray($assoc = true){
+        $body = $this->getResponseBody();
+        $temp = [];
+        json_decode($body);
+        if((json_last_error() == JSON_ERROR_NONE)){
+            return json_decode($this->responseBody, $assoc);
+        }   else if (is_string($body)) {
+      
+            $temp[] = $body;
+            return $temp;
+        }
     }
 
     //HTTP Request Functions
@@ -108,7 +123,6 @@ class HTTPClient {
             $bodyParams = http_build_query($params['form']);
         }
 
-
         $this->curl = curl_init($this->url);
 
         //TODO :: Create Curl Body
@@ -132,6 +146,8 @@ class HTTPClient {
 
         curl_close($this->curl);
 
+        $this->url = $this->baseURL;
+        
         return $this;
     }
 
@@ -164,8 +180,3 @@ class HTTPClient {
         return $headers;
     }
 }
-
-$client = new HttpClient('https://deckofcardsapi.com');
-$response = $client->get();
-var_dump($response);
-exit();
