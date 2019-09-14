@@ -10,7 +10,7 @@ These API works with only HTTP GET Request.
 Website :: https://deckofcardsapi.com/
 */
 
-include_once './lib/classes/http-rest-client.php';
+include_once './lib/init.php';
 
 $baseApiURL = 'https://deckofcardsapi.com/api/';
 
