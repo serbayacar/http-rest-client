@@ -18,7 +18,10 @@ $baseApiURL = 'https://deckofcardsapi.com/api/';
 $client = new HTTPRestClient($baseApiURL);
 
 // Cards Of Deck API's end point of creating new shuffled deck ( 1 Deck )
+// Full URL :: https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
 $request = $client->get('deck/new/shuffle/', ['deck_count' => 1]);
+
+//Get response as PHP Array
 $deck = $request->getResponseBodyAsArray();
 
 //Check :: Is the deck created?
