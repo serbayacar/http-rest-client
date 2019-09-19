@@ -10,34 +10,40 @@ These API works with only HTTP GET Request.
 Website :: https://deckofcardsapi.com/
 */
 
-include_once __DIR__ .'/../lib/init.php';
+include __DIR__ .'/../lib/autoloader.php';
 
-$baseApiURL = 'https://deckofcardsapi.com/api/';
+use \HTTPRest\Client\Client;
+use \HTTPRest\Parser;
 
 //Create new HTTP Rest Client
-$client = new HTTPRestClient($baseApiURL);
+$baseApiURL = 'https://deckofcardsapi.com/api/';
+$client = new Client($baseApiURL);
 
 // Cards Of Deck API's end point of creating new shuffled deck ( 1 Deck )
 // Full URL :: https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
 $request = $client->get('deck/new/shuffle/', ['deck_count' => 1]);
+$requestBody = $request->getResponseBody();
 
-//Get response as PHP Array
-$deck = $request->getResponseBodyAsArray();
+$parser = new Parser\PHPArray($requestBody);
+$deck = $parser->parse();
+
+// //Get response as PHP Array
+// $deck = $request->getResponseBodyAsArray();
 
 //Check :: Is the deck created?
 if($deck['success'] == true){
 
     // Withdraw a new card from the deck ( 1 Card )
     $requestForLuckyCard = $client->get('deck/'. $deck['deck_id'] .'/draw/' , ['count' => 1]);
-    $luckyCard =  $requestForLuckyCard->getResponseBodyAsArray();
+    $parser = new Parser\PHPArray( $requestForLuckyCard->getResponseBody() );
+    $luckyCard = $parser->parse();
 }
-
 
 //Check :: Is the card withdrawn?
 if( $luckyCard['success'] == true && isset($luckyCard['cards'])){
     echo '*****************************'. PHP_EOL;
     echo 'Deck ID :' . $deck['deck_id'] .PHP_EOL;
-    echo 'Your Lucky Card :' . $luckyCard['cards'][0]['value'] . '(' . $luckyCard['cards'][0]['suits'] . ')' . PHP_EOL;
+    echo 'Your Lucky Card :' . $luckyCard['cards'][0]['value'] . '(' . $luckyCard['cards'][0]['suit'] . ')' . PHP_EOL;
     echo 'Lucky Card Image :' . $luckyCard['cards'][0]['image'] . PHP_EOL;
     echo '*****************************' . PHP_EOL;
 }else {
