@@ -1,6 +1,6 @@
 <?php
 
-include_once './lib/init.php';
+include_once __DIR__ .'/../lib/init.php';
 
 $baseApiURL = 'https://ptsv2.com/t/oysterTest/';
 

@@ -19,8 +19,9 @@ $client = new HTTPRestClient($baseApiURL);
 // Cards Of Deck API's end point of creating new shuffled deck ( 1 Deck )
 // Full URL :: https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1
 $request = $client->get('deck/new/shuffle/', ['deck_count' => 1]);
+$requestBody = $request->getResponseBody();
 
-$parser = new PHPArray($request);
+$parser = new PHPArray($requestBody);
 $deck = $parser->parse();
 
 // //Get response as PHP Array
@@ -31,8 +32,7 @@ if($deck['success'] == true){
 
     // Withdraw a new card from the deck ( 1 Card )
     $requestForLuckyCard = $client->get('deck/'. $deck['deck_id'] .'/draw/' , ['count' => 1]);
-
-    $parser = new PHPArray($requestForLuckyCard);
+    $parser = new PHPArray( $requestForLuckyCard->getResponseBody() );
     $luckyCard = $parser->parse();
 }
 

@@ -148,7 +148,7 @@ class HTTPRestClient {
 
         $this->url = $this->baseURL;
         
-        return $this->responseBody;
+        return $this;
     }
 
     private function createCurlOptions()
