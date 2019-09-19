@@ -1,5 +1,5 @@
 <?php
-namespace \HTTPRest\Parser;
+namespace HTTPRest\Parser;
 
 
 class JSON extends AbstractParser {
