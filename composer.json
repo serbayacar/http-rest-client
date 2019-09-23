@@ -1,0 +1,25 @@
+{
+    "name": "serbayacar/http-rest-client",
+    "description": "Easy to use client library for HTTP Request which in GET, POST, PATCH, DELETE, PUT",
+    "version": "0.3.0",
+    "type": "library",
+    "keywords": ["http", "https", "get", "post", "put", "delete", "patch", "library", "rest-client", "client"],
+    "authors": [
+        {
+            "name": "Serbay ACAR",
+            "email": "serbayacar@gmail.com",
+            "role": "Full-Stack Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "HTTPRest\\": "HTTPRest/"
+        }
+    },
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    }
+}
