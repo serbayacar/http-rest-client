@@ -42,6 +42,18 @@ class Client {
         $this->options[$name] = $value;
     }
 
+    public function getAgent(){
+        return $this->agent;
+    }
+
+    public function getHeaders(){
+        return $this->headers;
+    }
+
+    public function getOptions(){
+        return $this->options;
+    }
+
     public function getResponse(){
         return $this->response;
     }
