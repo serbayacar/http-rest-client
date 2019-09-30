@@ -19,12 +19,11 @@ use \HTTPRest\Parser;
 $baseApiURL = 'https://oystertest.free.beeceptor.com';
 $client = new Client($baseApiURL);
 
-// Cards Of Deck API's end point of creating new shuffled deck ( 1 Deck )
 // Full URL :: https://oystertest.free.beeceptor.com/test/get
 $request = $client->get('/test/get');
 $requestBody = $request->getResponseBody();
 
 $parser = new Parser\JSON($requestBody);
-$deck = $parser->parse();
+$data = $parser->parse();
 
-var_dump($deck);
+var_dump($data);
