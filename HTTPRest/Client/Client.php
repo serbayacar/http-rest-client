@@ -66,6 +66,10 @@ class Client {
         return $this->responseBody;
     }
 
+    public function getResponseCode(){
+        return $this->responseCode;
+    }
+
     public function getResponseBodyAsJson(){
         return json_encode($this->responseBody);
     }
