@@ -87,6 +87,21 @@ class Client {
         }
     }
 
+    public function getResponseHeadersAsArray($assoc = true){
+        $headers = $this->getResponseHeaders();
+        if (!preg_match_all('/([A-Za-z\-]{1,})\:(.*)\\r/', $headers, $matches) || !isset($matches[1], $matches[2])){
+            return false;
+        }
+
+        $explodedHeaders = [];
+
+        foreach ($matches[1] as $index => $key){
+            $explodedHeaders[$key] = $matches[2][$index];
+        }
+
+        return $explodedHeaders;
+    }
+
     //HTTP Request Functions
     public function get($path, $params = []){
         $this->method = 'GET';

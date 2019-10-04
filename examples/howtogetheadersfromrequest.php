@@ -21,6 +21,6 @@ $client = new Client($baseApiURL);
 
 // Full URL :: https://oystertest.free.beeceptor.com/test/headers
 $request = $client->get('/test/headers');
-$requestHeader = $request->getResponseHeaders();
+$requestHeader = $request->getResponseHeadersAsArray();
 
 var_dump($requestHeader);
